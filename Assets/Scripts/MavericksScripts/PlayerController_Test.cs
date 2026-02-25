@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class PlayerController_Test : MonoBehaviour
 {
-    public float moveSpeed = 10f;
+    [SerializeField] float moveSpeed = 10f;
+    [SerializeField] float accel = 25f;
+    [SerializeField] float rotationSpeed = 3f;
 
     Rigidbody rb;
     Vector3 moveInput;
@@ -37,14 +39,32 @@ public class PlayerController_Test : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Move
         float moveX = Input.GetAxisRaw("Horizontal"); //A and D keys
         float moveZ = Input.GetAxisRaw("Vertical"); //W and S keys
 
-        moveInput = new Vector3(moveX, 0f, moveZ).normalized;
+        Vector3 moveDir = new Vector3(moveX, 0f, moveZ);
+        if(moveDir.magnitude > 1f)
+        {
+            moveDir.Normalize();
+        }
+        
 
-        Vector3 playerPos = rb.position + moveInput * moveSpeed * Time.fixedDeltaTime;
-        rb.MovePosition(playerPos);
+        Vector3 vel = rb.linearVelocity;
+        Vector3 targetVel = new Vector3(moveDir.x * moveSpeed, vel.y, moveDir.z * moveSpeed);
+        rb.linearVelocity = Vector3.MoveTowards(vel, targetVel, accel * Time.fixedDeltaTime);
 
+        if(moveDir.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
+            Quaternion newRot = Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime);
+            rb.MoveRotation(newRot);
+        }
+
+
+
+
+        //Jump
         isGrounded = CheckGround();
         if (isGrounded)
         {
