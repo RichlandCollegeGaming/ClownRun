@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController_Test : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float accel = 25f;
     [SerializeField] float rotationSpeed = 3f;
+    public Vector2 MoveInput;
 
     Rigidbody rb;
     Vector3 moveInput;
@@ -27,23 +29,13 @@ public class PlayerController_Test : MonoBehaviour
         lastJumpPressedTime = -999f;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            lastJumpPressedTime = Time.time;
-        }
-
-
-    }
+    
 
     private void FixedUpdate()
     {
         //Move
-        float moveX = Input.GetAxisRaw("Horizontal"); //A and D keys
-        float moveZ = Input.GetAxisRaw("Vertical"); //W and S keys
 
-        Vector3 moveDir = new Vector3(moveX, 0f, moveZ);
+        Vector3 moveDir = new Vector3(MoveInput.x, 0, MoveInput.y);
         if(moveDir.magnitude > 1f)
         {
             moveDir.Normalize();
@@ -82,6 +74,22 @@ public class PlayerController_Test : MonoBehaviour
         }
         
     }
+
+    public void OnMove(InputValue value)
+    {
+        MoveInput = value.Get<Vector2>();
+    }
+
+    public void OnJump(InputValue button)
+    {
+        if (button.isPressed)
+        {
+            lastJumpPressedTime = Time.time;
+        }
+    }
+
+
+
     bool CheckGround()
     {
         return Physics.CheckSphere(groundCheck.position + Vector3.up * 0.01f, groundRadius, groundMask, QueryTriggerInteraction.Ignore);
