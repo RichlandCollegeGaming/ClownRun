@@ -8,11 +8,20 @@ public class PlayerSpawner : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
-        playerInput.transform.position = SpawnPoints[m_playerCount].transform.position;
-        if (m_playerCount == 0)
+        int index = m_playerCount % SpawnPoints.Length;
+        Vector3 spawnPos = SpawnPoints[index].position;
+
+        Rigidbody rb = playerInput.GetComponent<Rigidbody>();
+        if (rb != null)
         {
-            playerInput.GetComponent<PlayerController_Test>();
+            rb.position = spawnPos;
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
-        m_playerCount++;
+        else
+        {
+            playerInput.transform.position = spawnPos;
+        }
+            m_playerCount++;
     }
 }
