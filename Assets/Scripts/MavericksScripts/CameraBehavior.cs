@@ -6,16 +6,19 @@ public class CameraBehavior : MonoBehaviour
 {
     List<Transform> players = new List<Transform>();
 
-    
+
     [SerializeField] float smoothTime = 0.15f;
-    [SerializeField] float y = 10f;
     [SerializeField] float z = -39.5f;
 
     [SerializeField] float forwardOffset = 3f;
+    [SerializeField] float heightOffset = 8f;
     [SerializeField] float deadZone = 1.0f;
 
     float camX;
+    float camY;
+
     float velX;
+    float velY;
 
     public void RegisterPlayer(Transform player)
     {
@@ -25,6 +28,7 @@ public class CameraBehavior : MonoBehaviour
     private void Start()
     {
         camX = transform.position.x;
+        camY = transform.position.y;
     }
 
     private void LateUpdate()
@@ -32,24 +36,26 @@ public class CameraBehavior : MonoBehaviour
         if(players.Count == 0) return;
 
         //Find leader
-        float leaderX = players[0].position.x;
+        Transform leader = players[0];
         for(int i = 1; i < players.Count; i++)
         {
-            if (players[i] != null && players[i].position.x > leaderX)
+            if (players[i] != null && players[i].position.x > leader.position.x)
             {
-                leaderX = players[i].position.x;
+                leader = players[i];
             }
         }
 
-        float desiredX = leaderX + forwardOffset;
+        float desiredX = leader.position.x + forwardOffset;
+        float desiredY = leader.position.y + heightOffset;
 
         //Deadzone + never move backward
         if(desiredX > camX + deadZone)
         {
             camX = Mathf.SmoothDamp(camX, desiredX, ref velX, smoothTime);
+            camY = Mathf.SmoothDamp(camY, desiredY, ref velY, smoothTime);
         }
 
-        transform.position = new Vector3(camX, y, z);
+        transform.position = new Vector3(camX, camY, z);
     }
 
 
