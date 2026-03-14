@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem.Controls;
 
 public class MovePlatform : MonoBehaviour
 {
@@ -7,74 +8,70 @@ public class MovePlatform : MonoBehaviour
     [SerializeField] Transform ptB;
     [SerializeField] float moveSpeed = 5f;
 
-    Rigidbody rb;
-    Transform targetPoint;
+    public Vector3 Delta {  get; private set; }
+
+    private float timeToTarget;
+    private float elapsedTime;
+
+    Vector3 targetPoint;
+    Vector3 previousPoint;
+
+    Rigidbody platformRb;
 
     private void Start()
     {
-        if (Vector3.Distance(transform.position, ptA.position) < Vector3.Distance(transform.position, ptB.position)) //Which point is furthest from me?
+        platformRb = GetComponent<Rigidbody>();
+
+        if (Vector3.Distance(platformRb.position, ptA.position) < Vector3.Distance(platformRb.position, ptB.position)) //Which point is furthest from me?
         {
-            targetPoint = ptB; //if true ptB is furthest
+            targetPoint = ptB.position; //if true ptB is furthest
+            previousPoint = ptA.position;
         }
         else
         {
-            targetPoint = ptA; //if false ptA is furthest
+            targetPoint = ptA.position; //if false ptA is furthest
+            previousPoint = ptB.position;
         }
+
+        float distanceToTarget = Vector3.Distance(previousPoint, targetPoint);
+        timeToTarget = distanceToTarget / moveSpeed;
+        elapsedTime = 0f;
     }
 
     private void FixedUpdate()
     {
-        Vector3 oldPos = transform.position;
+        Vector3 oldPos = platformRb.position;
+
+        elapsedTime += Time.fixedDeltaTime;
+
+        float elapsedPercentage = elapsedTime / timeToTarget;
+        elapsedPercentage = Mathf.Clamp01(elapsedPercentage);
+        //elapsedPercentage = Mathf.SmoothStep(0f,1f, elapsedPercentage);
 
         //move toward the current target
-        transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, moveSpeed * Time.fixedDeltaTime);
+        Vector3 newPos = Vector3.Lerp(previousPoint, targetPoint, elapsedPercentage);
+        platformRb.MovePosition(newPos);
+
+        Delta = newPos - oldPos;
 
         //if we reached the target, switch direction
-        if (Vector3.Distance(transform.position, targetPoint.position) < 0.05f)
+        if (elapsedPercentage >= 1f)
         {
-            if (targetPoint == ptA)
-            {
-                targetPoint = ptB;
-            }
-            else
-            {
-                targetPoint = ptA;
-            }
-        }
-
-        //Move player with platform
-        Vector3 delta = transform.position - oldPos;
-        if(rb != null)
-        {
-            rb.MovePosition(rb.position + delta);
-        }
-
-    }
-
-    //collision to check if player is on platform
-    private void OnCollisionStay(Collision collision)
-    {
-        if (!collision.gameObject.CompareTag("Player")) return;
-
-        for(int i = 0; i < collision.contactCount; i++)
-        {
-            Vector3 normal = collision.GetContact(i).normal;
-
-            //Player is on top of platform
-            if(normal.y < -0.5f)
-            {
-                rb = collision.rigidbody;
-                return;
-            }
+            TargetNextPoint();
         }
         
+
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void TargetNextPoint()
     {
-        if(collision.gameObject.CompareTag("Player") && collision.rigidbody == rb)
-        {
-            rb = null;
-        }
+        Vector3 temp = previousPoint;
+        previousPoint = targetPoint;
+        targetPoint = temp;
+
+        elapsedTime = 0f;
+
+        float distanceToTarget = Vector3.Distance(previousPoint, targetPoint);
+        timeToTarget = distanceToTarget / moveSpeed;
     }
 }

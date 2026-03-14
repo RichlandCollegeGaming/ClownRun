@@ -12,7 +12,7 @@ public class PlayerController_Test : MonoBehaviour
     Vector3 moveInput;
 
     //Jump Variables
-    [SerializeField] float jumpForce = 10f;
+    [SerializeField] float jumpForce = 9.05f;
     [SerializeField] LayerMask groundMask;
     [SerializeField] float groundRadius = 0.25f;
     [SerializeField] Transform groundCheck;
@@ -21,6 +21,11 @@ public class PlayerController_Test : MonoBehaviour
     float lastGroundedTime;
     float lastJumpPressedTime;
     bool isGrounded;
+
+    //Gravity Jump variables
+    [SerializeField] float gravityMultiplier = 29f;
+
+    MovePlatform currentPlatform;
 
 
     private void Start()
@@ -43,7 +48,14 @@ public class PlayerController_Test : MonoBehaviour
         
 
         Vector3 vel = rb.linearVelocity;
-        Vector3 targetVel = new Vector3(moveDir.x * moveSpeed, vel.y, moveDir.z * moveSpeed);
+
+        Vector3 platformVel = Vector3.zero;
+        if(currentPlatform != null)
+        {
+            platformVel = currentPlatform.Delta / Time.fixedDeltaTime;
+        }
+
+        Vector3 targetVel = new Vector3(moveDir.x * moveSpeed + platformVel.x, vel.y, moveDir.z * moveSpeed + platformVel.z);
         rb.linearVelocity = Vector3.MoveTowards(vel, targetVel, accel * Time.fixedDeltaTime);
 
         if(moveDir.sqrMagnitude > 0.001f)
@@ -72,6 +84,14 @@ public class PlayerController_Test : MonoBehaviour
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+
+        if (!isGrounded)
+        {
+            if (rb.linearVelocity.y < 0f)
+            {
+                rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
+            }
+        }
         
     }
 
@@ -93,5 +113,30 @@ public class PlayerController_Test : MonoBehaviour
     bool CheckGround()
     {
         return Physics.CheckSphere(groundCheck.position + Vector3.up * 0.01f, groundRadius, groundMask, QueryTriggerInteraction.Ignore);
+    }
+
+    void OnCollisionStay(Collision collision)
+    {
+        MovePlatform platform = collision.collider.GetComponentInParent<MovePlatform>();
+        if (platform == null) return;
+
+        for(int i = 0; i < collision.contactCount; i++)
+        {
+            Vector3 normal = collision.GetContact(i).normal;
+
+            if(normal.y > 0.5f)
+            {
+                currentPlatform = platform;
+                return;
+            }
+        }
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        MovePlatform platform = collision.collider.GetComponentInParent<MovePlatform>();
+        if(platform != null && currentPlatform == platform)
+        {
+            currentPlatform = null;
+        }
     }
 }

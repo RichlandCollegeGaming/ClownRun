@@ -425,7 +425,7 @@ MonoBehaviour:
   accel: 25
   rotationSpeed: 3
   MoveInput: {x: 0, y: 0}
-  jumpForce: 10
+  jumpForce: 9.05
   groundMask:
     serializedVersion: 2
     m_Bits: 8
@@ -433,6 +433,7 @@ MonoBehaviour:
   groundCheck: {fileID: 8381853645366149497}
   lateTime: 0.12
   jumpBufferTime: 0.12
+  gravityMultiplier: 29
 --- !u!1 &7178175319623391337
 GameObject:
   m_ObjectHideFlags: 0
