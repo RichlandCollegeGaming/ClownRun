@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 6922889081539470239}
   m_Layer: 0
   m_Name: TempPlayerHolder
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -393,7 +393,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6916367296729443082}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 24becca29590eae44a2d0fab47fdf01f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

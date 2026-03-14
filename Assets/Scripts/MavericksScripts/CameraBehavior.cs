@@ -25,6 +25,11 @@ public class CameraBehavior : MonoBehaviour
         players.Add(player);
     }
 
+    public void RemovePlayer(Transform player)
+    {
+        players.Remove(player);
+    }
+
     private void Start()
     {
         camX = transform.position.x;
@@ -49,11 +54,12 @@ public class CameraBehavior : MonoBehaviour
         float desiredY = leader.position.y + heightOffset;
 
         //Deadzone + never move backward
-        if(desiredX > camX + deadZone)
+        if(Mathf.Abs(desiredX - camX) > deadZone)
         {
             camX = Mathf.SmoothDamp(camX, desiredX, ref velX, smoothTime);
-            camY = Mathf.SmoothDamp(camY, desiredY, ref velY, smoothTime);
         }
+        //always follow Y
+        camY = Mathf.SmoothDamp(camY, desiredY, ref velY, smoothTime);
 
         transform.position = new Vector3(camX, camY, z);
     }

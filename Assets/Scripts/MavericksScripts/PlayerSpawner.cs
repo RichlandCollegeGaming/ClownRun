@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
 public class PlayerSpawner : MonoBehaviour
@@ -9,6 +10,8 @@ public class PlayerSpawner : MonoBehaviour
 
     CameraBehavior cam;
 
+    HashSet<InputDevice> usedDevices = new HashSet<InputDevice>();
+
     private void Start()
     {
         cam = FindAnyObjectByType<CameraBehavior>();
@@ -18,6 +21,28 @@ public class PlayerSpawner : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
+        if (playerInput == null) return;
+        if(SpawnPoints == null || SpawnPoints.Length == 0) return;
+
+        InputDevice device = null;
+
+        if(playerInput.devices.Count > 0)
+        {
+            device = playerInput.devices[0];
+        }
+
+        if (device == null) return;
+
+        //if this device already had a player before, do not allow rejoin
+        if (usedDevices.Contains(device))
+        {
+            Destroy(playerInput.gameObject);
+            return;
+        }
+
+        usedDevices.Add(device);
+
+
         int index = m_playerCount % SpawnPoints.Length;
         Vector3 spawnPos = SpawnPoints[index].position;
 
