@@ -285,7 +285,6 @@ MonoBehaviour:
   accel: 25
   rotationSpeed: 3
   MoveInput: {x: 0, y: 0}
-  activeCharacterRoot: {fileID: 3401543163160168892}
   jumpForce: 20.95
   groundMask:
     serializedVersion: 2
@@ -525,6 +524,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -177755959395213833, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2004111667550450263}
+    - targetCorrespondingSourceObject: {fileID: -177755959395213833, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1117066535326425747}
     - targetCorrespondingSourceObject: {fileID: -7480941693347732819, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8714325911817987509}
@@ -1045,6 +1047,11 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!4 &4847082611597569540 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7277999151107019789, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
+  m_PrefabInstance: {fileID: 2757590961774852617}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5468695242420597360 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1323958201918175111, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
@@ -1344,8 +1351,8 @@ ConfigurableJoint:
     useAcceleration: 0
   m_SlerpDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 0
+    positionSpring: 1000
+    positionDamper: 50
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ProjectionMode: 0
@@ -1359,6 +1366,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &1117066535326425747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6614826583626672126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeaba064ce1e94a41bcaa81a95fef473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootController: {fileID: 6922889081539470239}
+  facingBody: {fileID: 4847082611597569540}
+  mainJoint: {fileID: 2004111667550450263}
+  rotationSpeed: 8
 --- !u!1 &8757978247981473797 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2319784206669817332, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
@@ -1612,6 +1635,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -177755959395213833, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1585161883145497851}
+    - targetCorrespondingSourceObject: {fileID: -177755959395213833, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5803839907485407079}
     - targetCorrespondingSourceObject: {fileID: -7480941693347732819, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3828787044920339094}
@@ -2289,6 +2315,11 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!4 &5312256127846142671 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7277999151107019789, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
+  m_PrefabInstance: {fileID: 3222406241682540226}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5850231453420837685 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -177755959395213833, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
@@ -2431,8 +2462,8 @@ ConfigurableJoint:
     useAcceleration: 0
   m_SlerpDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 0
+    positionSpring: 1000
+    positionDamper: 50
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ProjectionMode: 0
@@ -2446,6 +2477,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &5803839907485407079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5850231453420837685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeaba064ce1e94a41bcaa81a95fef473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootController: {fileID: 6922889081539470239}
+  facingBody: {fileID: 5312256127846142671}
+  mainJoint: {fileID: 1585161883145497851}
+  rotationSpeed: 8
 --- !u!1 &8319892239897533646 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2319784206669817332, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
@@ -2671,6 +2718,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -177755959395213833, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7336681954280573417}
+    - targetCorrespondingSourceObject: {fileID: -177755959395213833, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3973720737965715347}
     - targetCorrespondingSourceObject: {fileID: -7480941693347732819, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9051236827916234991}
@@ -3333,8 +3383,8 @@ ConfigurableJoint:
     useAcceleration: 0
   m_SlerpDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 0
+    positionSpring: 1000
+    positionDamper: 50
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ProjectionMode: 0
@@ -3348,6 +3398,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &3973720737965715347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4737939328063651184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeaba064ce1e94a41bcaa81a95fef473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootController: {fileID: 6922889081539470239}
+  facingBody: {fileID: 6433485491999880330}
+  mainJoint: {fileID: 7336681954280573417}
+  rotationSpeed: 8
 --- !u!1 &5902154595767937278 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1323958201918175111, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
@@ -3505,6 +3571,11 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!4 &6433485491999880330 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7277999151107019789, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
+  m_PrefabInstance: {fileID: 4343987178697400455}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7171571038159796875 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2319784206669817332, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
@@ -3758,6 +3829,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -177755959395213833, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2181869097313555625}
+    - targetCorrespondingSourceObject: {fileID: -177755959395213833, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5716446018355338709}
     - targetCorrespondingSourceObject: {fileID: -7480941693347732819, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8997199480712859754}
@@ -3946,8 +4020,8 @@ ConfigurableJoint:
     useAcceleration: 0
   m_SlerpDrive:
     serializedVersion: 4
-    positionSpring: 100
-    positionDamper: 0
+    positionSpring: 1000
+    positionDamper: 50
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_ProjectionMode: 0
@@ -3961,6 +4035,22 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!114 &5716446018355338709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287968654904092095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeaba064ce1e94a41bcaa81a95fef473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rootController: {fileID: 6922889081539470239}
+  facingBody: {fileID: 1979278950783740997}
+  mainJoint: {fileID: 2181869097313555625}
+  rotationSpeed: 8
 --- !u!1 &1429665374667321393 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1323958201918175111, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
@@ -4118,6 +4208,11 @@ ConfigurableJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!4 &1979278950783740997 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7277999151107019789, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}
+  m_PrefabInstance: {fileID: 9112868999930804296}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2429993938596733508 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2319784206669817332, guid: e35f8779a2ed12b46b200b57aa791344, type: 3}

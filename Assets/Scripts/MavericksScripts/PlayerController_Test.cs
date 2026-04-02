@@ -11,6 +11,8 @@ public class PlayerController_Test : MonoBehaviour
     Rigidbody rb;
     Vector3 moveInput;
 
+    public Vector3 CurrentMoveDirection { get; private set; }
+
     //Jump Variables
     [SerializeField] float jumpForce = 9.05f;
     [SerializeField] LayerMask groundMask;
@@ -45,6 +47,8 @@ public class PlayerController_Test : MonoBehaviour
         {
             moveDir.Normalize();
         }
+
+        CurrentMoveDirection = moveDir;
         
 
         Vector3 vel = rb.linearVelocity;
