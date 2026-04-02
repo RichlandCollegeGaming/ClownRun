@@ -32,22 +32,21 @@ public class GameManager : MonoBehaviour
     }
 
     //Choose Map and Load the Scene
-    public void PlaySelected()
+    public void LoadMap1()
     {
-        int index = -1;
-
-        if (firstMap.interactable) index = 1;
-        else if (secondMap.interactable) index = 2;
-        else if (thirdMap.interactable) index = 3;
-        else if (fourthMap.interactable) index = 4;
-
-        if(index == -1)
-        {
-            Debug.LogError("No map selected!");
-            return;
-        }
-
-        LoadSceneSafe(index);
+        SceneManager.LoadScene(1);
+    }
+    public void LoadMap2()
+    {
+        SceneManager.LoadScene(2);
+    }
+    public void LoadMap3()
+    {
+        SceneManager.LoadScene(3);
+    }
+    public void LoadMap4()
+    {
+        SceneManager.LoadScene(4);
     }
 
     public void CloseMapSelection()
@@ -58,18 +57,7 @@ public class GameManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(mainFirstButton.gameObject);
     }
 
-    //Safe Helper
-    void LoadSceneSafe(int index)
-    {
-        if (index >= 0 && index < SceneManager.sceneCountInBuildSettings)
-        {
-            SceneManager.LoadScene(index);
-        }
-        else
-        {
-            Debug.LogError("Scene index out of range: " + index);
-        }
-    }
+    
 
     //Settings
     public void OpenSettings()
