@@ -63,6 +63,7 @@ public class PlayerController_Test : MonoBehaviour
             Quaternion targetRot = Quaternion.LookRotation(moveDir, Vector3.up);
             Quaternion newRot = Quaternion.Slerp(rb.rotation, targetRot, rotationSpeed * Time.fixedDeltaTime);
             rb.MoveRotation(newRot);
+            
         }
 
 

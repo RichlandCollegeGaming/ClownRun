@@ -44,26 +44,49 @@ public class PlayerSpawner : MonoBehaviour
 
 
         int index = m_playerCount % SpawnPoints.Length;
-        Vector3 spawnPos = SpawnPoints[index].position;
+        Transform spawnPoint = SpawnPoints[index];
 
-        Rigidbody rb = playerInput.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            rb.position = spawnPos;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
-        }
-        else
-        {
-            playerInput.transform.position = spawnPos;
-        }
+        if (spawnPoint == null) return;
+
 
         SetPlayerVisual(playerInput.transform, m_playerCount);
+        TeleportWholePlayer(playerInput.transform, spawnPoint.position, spawnPoint.rotation);
 
-        //Register player with Camera
-        cam.RegisterPlayer(playerInput.transform);
+        if(cam != null)
+        {
+            //Register player with Camera
+            cam.RegisterPlayer(playerInput.transform);
+        }
+        
 
             m_playerCount++;
+    }
+
+    void TeleportWholePlayer(Transform playerRoot, Vector3 newRootPos, Quaternion newRootRot)
+    {
+
+        Vector3 oldRootPos = playerRoot.position;
+        Quaternion oldRootRot = playerRoot.rotation;
+
+        Quaternion deltaRot = newRootRot * Quaternion.Inverse(oldRootRot);
+        Rigidbody[] bodies = playerRoot.GetComponentsInChildren<Rigidbody>(true);
+
+        for (int i = 0; i < bodies.Length; i++)
+        {
+            Rigidbody body = bodies[i];
+            Vector3 worldOffset = body.position - oldRootPos;
+            Vector3 rotatedOffset = deltaRot * worldOffset;
+
+            body.position = newRootPos + rotatedOffset;
+            body.rotation = deltaRot * body.rotation;
+
+            body.linearVelocity = Vector3.zero;
+            body.angularVelocity = Vector3.zero;
+        }
+
+        playerRoot.SetPositionAndRotation(newRootPos, newRootRot);
+
+
     }
 
     void SetPlayerVisual(Transform playerRoot, int playerIndex)
@@ -82,5 +105,6 @@ public class PlayerSpawner : MonoBehaviour
         {
             chosen.gameObject.SetActive(true);
         }
+
     }
 }
