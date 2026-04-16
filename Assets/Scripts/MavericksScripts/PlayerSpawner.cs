@@ -10,17 +10,25 @@ public class PlayerSpawner : MonoBehaviour
 
     CameraBehavior cam;
 
+    RaceGameManager raceManager;
+
     HashSet<InputDevice> usedDevices = new HashSet<InputDevice>();
 
     private void Start()
     {
         cam = FindAnyObjectByType<CameraBehavior>();
+        raceManager = FindAnyObjectByType<RaceGameManager>();
     }
 
 
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
+        if(raceManager != null && raceManager.RaceEnded)
+        {
+            Destroy(playerInput.gameObject);
+            return;
+        }
         if (playerInput == null) return;
         if(SpawnPoints == null || SpawnPoints.Length == 0) return;
 
@@ -52,12 +60,19 @@ public class PlayerSpawner : MonoBehaviour
         SetPlayerVisual(playerInput.transform, m_playerCount);
         TeleportWholePlayer(playerInput.transform, spawnPoint.position, spawnPoint.rotation);
 
+        //set clean player name
+        playerInput.gameObject.name = "Player" + (m_playerCount + 1);
+
         if(cam != null)
         {
             //Register player with Camera
             cam.RegisterPlayer(playerInput.transform);
         }
-        
+        if(raceManager != null)
+        {
+            raceManager.RegisterPlayer(playerInput.gameObject);
+        }
+
 
             m_playerCount++;
     }
