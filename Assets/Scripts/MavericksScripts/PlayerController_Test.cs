@@ -30,6 +30,10 @@ public class PlayerController_Test : MonoBehaviour
     MovePlatform currentPlatform;
 
 
+    //Audio
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip hitSound;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -40,8 +44,13 @@ public class PlayerController_Test : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Move
+        if (!LobbyManager.GameStarted)
+        {
+            rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+            return;
+        }
 
+        //Move
         Vector3 moveDir = new Vector3(MoveInput.x, 0, MoveInput.y);
         if(moveDir.magnitude > 1f)
         {
@@ -107,6 +116,8 @@ public class PlayerController_Test : MonoBehaviour
 
     public void OnJump(InputValue button)
     {
+        if (!LobbyManager.GameStarted) return;
+
         if (button.isPressed)
         {
             lastJumpPressedTime = Time.time;
@@ -143,5 +154,12 @@ public class PlayerController_Test : MonoBehaviour
         {
             currentPlatform = null;
         }
+    }
+
+    public void PlayHitSound()
+    {
+        if (audioSource == null || hitSound == null) return;
+
+        audioSource.PlayOneShot(hitSound);
     }
 }

@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 6873734982551906476}
   m_Layer: 0
   m_Name: Spinning_Axe
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 2273588221399060918}
   m_Layer: 0
   m_Name: Spinning_Axe_Root
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

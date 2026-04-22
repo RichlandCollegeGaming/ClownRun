@@ -7,9 +7,10 @@ public class PlayerSpawner : MonoBehaviour
     public Transform[] SpawnPoints;
     private int m_playerCount;
 
+    public int PlayerCount => m_playerCount;
 
     CameraBehavior cam;
-
+    LobbyManager lobbyManager;
     RaceGameManager raceManager;
 
     HashSet<InputDevice> usedDevices = new HashSet<InputDevice>();
@@ -18,6 +19,7 @@ public class PlayerSpawner : MonoBehaviour
     {
         cam = FindAnyObjectByType<CameraBehavior>();
         raceManager = FindAnyObjectByType<RaceGameManager>();
+        lobbyManager = FindAnyObjectByType<LobbyManager>();
     }
 
 
@@ -71,6 +73,10 @@ public class PlayerSpawner : MonoBehaviour
         if(raceManager != null)
         {
             raceManager.RegisterPlayer(playerInput.gameObject);
+        }
+        if(lobbyManager != null)
+        {
+            lobbyManager.OnPlayerJoined();
         }
 
 
