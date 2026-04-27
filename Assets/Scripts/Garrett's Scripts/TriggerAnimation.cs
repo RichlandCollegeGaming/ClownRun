@@ -2,32 +2,14 @@ using UnityEngine;
 
 public class TriggerAnimation : MonoBehaviour
 {
-    public Animator animator; // Assign in Inspector
-    public string boolParameterName = "IsPlayerInside";
+    public Animator animator;
+    public string triggerParameter = "Play"; // Set this in Animator
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.rigidbody != null)
         {
-            if (animator != null)
-            {
-                animator.SetBool(boolParameterName, true);
-            }
-            else
-            {
-                Debug.LogWarning("Animator not assigned!");
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            if (animator != null)
-            {
-                animator.SetBool(boolParameterName, false);
-            }
+            animator.SetTrigger(triggerParameter);
         }
     }
 }
