@@ -627,6 +627,21 @@ MonoBehaviour:
   - {fileID: 4863907185712390901}
   - {fileID: 5359881866382697547}
   - {fileID: 1287112247837113393}
+  playerResultImage:
+  - {fileID: 940835843930355598}
+  - {fileID: 741557997846577027}
+  - {fileID: 6162364127661399169}
+  - {fileID: 2796336050475973637}
+  dnfSprite:
+  - {fileID: -858857153, guid: 35d62579aa58ad749abaaedf5b328d2b, type: 3}
+  - {fileID: 1359837521, guid: 42b84d4e5b0b58740963e65a7f29ef0c, type: 3}
+  - {fileID: -661982098, guid: 35d62579aa58ad749abaaedf5b328d2b, type: 3}
+  - {fileID: -812522729, guid: 42b84d4e5b0b58740963e65a7f29ef0c, type: 3}
+  originalSprite:
+  - {fileID: -1764003309, guid: 35d62579aa58ad749abaaedf5b328d2b, type: 3}
+  - {fileID: 550404352, guid: 42b84d4e5b0b58740963e65a7f29ef0c, type: 3}
+  - {fileID: 1600827194, guid: 35d62579aa58ad749abaaedf5b328d2b, type: 3}
+  - {fileID: 463694789, guid: 42b84d4e5b0b58740963e65a7f29ef0c, type: 3}
 --- !u!114 &977925731224719222
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class RaceGameManager : MonoBehaviour
 {
     [SerializeField] GameObject resultsPanel;
     [SerializeField] TMP_Text[] resultsText;
+
+    //Pictures
+    [SerializeField] Image[] playerResultImage;
+    [SerializeField] Sprite[] dnfSprite;
+    [SerializeField] Sprite[] originalSprite;
 
     int totalPlayers;
     int alivePlayers;
@@ -36,6 +42,14 @@ public class RaceGameManager : MonoBehaviour
 
     private void Start()
     {
+        originalSprite = new Sprite[playerResultImage.Length];
+        for(int i = 0; i < playerResultImage.Length; i++)
+        {
+            originalSprite[i] = playerResultImage[i].sprite;
+        }
+
+        ResetResultImages();
+
         if(resultsPanel != null)
         {
             resultsPanel.SetActive(false);
@@ -85,6 +99,18 @@ public class RaceGameManager : MonoBehaviour
         }
     }
 
+    void ResetResultImages()
+    {
+        for(int i = 0; i < playerResultImage.Length; i++)
+        {
+            if(playerResultImage[i] != null)
+            {
+                playerResultImage[i].sprite = originalSprite[i];
+            }
+        }
+    }
+
+
     void ShowResults()
     {
         RaceEnded = true;
@@ -94,10 +120,16 @@ public class RaceGameManager : MonoBehaviour
             resultsPanel.SetActive(true);
         }
 
+
         //Clear all slots first
         for (int i = 0; i < resultsText.Length; i++)
         {
             resultsText[i].text = "DNF";
+
+            if (playerResultImage[i] != null && dnfSprite[i] != null)
+            {
+                playerResultImage[i].sprite = dnfSprite[i];
+            }
         }
 
 
@@ -105,14 +137,23 @@ public class RaceGameManager : MonoBehaviour
         for (int i = 0; i < finishOrder.Count; i++)
         {
             int playerIndex = GetPlayerIndexFromName(finishOrder[i]);
+            
 
             if(playerIndex >= 0 && playerIndex < resultsText.Length)
             {
                 resultsText[playerIndex].text = GetPlaceText(i + 1);
             }
+            if (playerResultImage[playerIndex] != null && originalSprite[playerIndex] != null)
+            {
+                playerResultImage[playerIndex].sprite = originalSprite[playerIndex];
+            }
         }
         
     }
+
+
+
+    //Result leaderboard helpers
     string GetPlaceText(int place)
     {
         if (place == 1) return "1st Place";

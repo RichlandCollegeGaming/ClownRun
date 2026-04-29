@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelTemplate.unity
     guid: c38f1fae375cc9a44976e98552a47e27
   - enabled: 1
+    path: Assets/Scenes/JoshWard.unity
+    guid: d916ee164eebdc94ca1bcdce349106d2
+  - enabled: 0
     path: Assets/Scenes/Level 1.unity
     guid: 7127d76b78eb5344b9c08e6d2e867e4b
   - enabled: 0
