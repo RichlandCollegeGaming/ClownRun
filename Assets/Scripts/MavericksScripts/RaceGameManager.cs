@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class RaceGameManager : MonoBehaviour
 {
     [SerializeField] GameObject resultsPanel;
-    [SerializeField] TMP_Text resultsText;
+    [SerializeField] TMP_Text[] resultsText;
 
     int totalPlayers;
     int alivePlayers;
@@ -87,44 +87,48 @@ public class RaceGameManager : MonoBehaviour
 
     void ShowResults()
     {
-        
-
         RaceEnded = true;
 
         if (resultsPanel != null)
         {
             resultsPanel.SetActive(true);
         }
-        if (resultsText == null) return;
 
-        if (resultsText != null)
+        //Clear all slots first
+        for (int i = 0; i < resultsText.Length; i++)
         {
-            string results = "";
-            if(finishOrder.Count == 0)
-            {
-                results = "No players finished";
-            }
-            else
-            {
-                for (int i = 0; i < finishOrder.Count; i++)
-                {
-                    int place = i + 1;
-                    results += place + ". " + finishOrder[i] + "\n";
-                }
-
-                //Show DNF players
-                if(deadPlayers.Count > 0)
-                {
-                    results += "\n";
-                    for (int i = 0; i < deadPlayers.Count; i++)
-                    {
-                        results += "DNF: " + deadPlayers[i] + "\n";
-                    }
-                }
-            }
-                
-
-            resultsText.text = results;
+            resultsText[i].text = "DNF";
         }
+
+
+        //Finished players first
+        for (int i = 0; i < finishOrder.Count; i++)
+        {
+            int playerIndex = GetPlayerIndexFromName(finishOrder[i]);
+
+            if(playerIndex >= 0 && playerIndex < resultsText.Length)
+            {
+                resultsText[playerIndex].text = GetPlaceText(i + 1);
+            }
+        }
+        
+    }
+    string GetPlaceText(int place)
+    {
+        if (place == 1) return "1st Place";
+        if (place == 2) return "2nd Place";
+        if (place == 3) return "3rd Place";
+        if (place == 4) return "4th Place";
+
+        return place + "th Place";
+    }
+    int GetPlayerIndexFromName(string playerName)
+    {
+        if (playerName == "Player1") return 0;
+        if (playerName == "Player2") return 1;
+        if (playerName == "Player3") return 2;
+        if (playerName == "Player4") return 3;
+
+        return -1;
     }
 }

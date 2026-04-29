@@ -13,6 +13,9 @@ public class PlayerController_Test : MonoBehaviour
 
     public Vector3 CurrentMoveDirection { get; private set; }
 
+    //Animator
+    [SerializeField] Animator animator;
+
     //Jump Variables
     [SerializeField] float jumpForce = 9.05f;
     [SerializeField] LayerMask groundMask;
@@ -47,6 +50,7 @@ public class PlayerController_Test : MonoBehaviour
         if (!LobbyManager.GameStarted)
         {
             rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+            animator.SetBool("isMoving", false);
             return;
         }
 
@@ -79,6 +83,13 @@ public class PlayerController_Test : MonoBehaviour
             
         }
 
+        //Moving animation
+        bool isMoving = moveDir.sqrMagnitude > 0.01f;
+        if(animator != null)
+        {
+            animator.SetBool("isMoving", isMoving);
+        }
+        
 
 
 
@@ -161,5 +172,10 @@ public class PlayerController_Test : MonoBehaviour
         if (audioSource == null || hitSound == null) return;
 
         audioSource.PlayOneShot(hitSound);
+    }
+
+    public void SetAnimator(Animator newAnimator)
+    {
+        animator = newAnimator;
     }
 }
