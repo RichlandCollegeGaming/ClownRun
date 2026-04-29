@@ -562,11 +562,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5057473896499917855, guid: 86f7321f71df2654587710a592b53926, type: 3}
       propertyPath: m_SpotAngle
-      value: 18.7449
+      value: 10.3355
       objectReference: {fileID: 0}
     - target: {fileID: 5057473896499917855, guid: 86f7321f71df2654587710a592b53926, type: 3}
       propertyPath: m_InnerSpotAngle
-      value: 18.7449
+      value: 10.3355
       objectReference: {fileID: 0}
     - target: {fileID: 5154434683862555201, guid: 86f7321f71df2654587710a592b53926, type: 3}
       propertyPath: m_Name
@@ -4323,11 +4323,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5057473896499917855, guid: 86f7321f71df2654587710a592b53926, type: 3}
       propertyPath: m_SpotAngle
-      value: 18.7449
+      value: 10.3355
       objectReference: {fileID: 0}
     - target: {fileID: 5057473896499917855, guid: 86f7321f71df2654587710a592b53926, type: 3}
       propertyPath: m_InnerSpotAngle
-      value: 18.7449
+      value: 10.3355
       objectReference: {fileID: 0}
     - target: {fileID: 5154434683862555201, guid: 86f7321f71df2654587710a592b53926, type: 3}
       propertyPath: m_Name
@@ -4419,11 +4419,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5057473896499917855, guid: 86f7321f71df2654587710a592b53926, type: 3}
       propertyPath: m_SpotAngle
-      value: 18.7449
+      value: 10.335504
       objectReference: {fileID: 0}
     - target: {fileID: 5057473896499917855, guid: 86f7321f71df2654587710a592b53926, type: 3}
       propertyPath: m_InnerSpotAngle
-      value: 18.7449
+      value: 10.335504
       objectReference: {fileID: 0}
     - target: {fileID: 5154434683862555201, guid: 86f7321f71df2654587710a592b53926, type: 3}
       propertyPath: m_Name
@@ -4515,11 +4515,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5057473896499917855, guid: 86f7321f71df2654587710a592b53926, type: 3}
       propertyPath: m_SpotAngle
-      value: 18.7449
+      value: 10.3355
       objectReference: {fileID: 0}
     - target: {fileID: 5057473896499917855, guid: 86f7321f71df2654587710a592b53926, type: 3}
       propertyPath: m_InnerSpotAngle
-      value: 18.7449
+      value: 10.3355
       objectReference: {fileID: 0}
     - target: {fileID: 5154434683862555201, guid: 86f7321f71df2654587710a592b53926, type: 3}
       propertyPath: m_Name
