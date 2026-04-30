@@ -48,22 +48,8 @@ public class PlayerSpawner : MonoBehaviour
 
         if (spawnPoint == null) return;
 
-        //Select Visual
-        Transform chosenVisual = SetPlayerVisual(playerInput.transform, m_playerCount);
 
-        //Assign Animator
-        Animator anim = null;
-        if(chosenVisual != null)
-        {
-            anim = chosenVisual.GetComponentInChildren<Animator>();
-        }
-
-        PlayerController_Test controller = playerInput.GetComponent<PlayerController_Test>();
-        if(controller != null && anim != null)
-        {
-            controller.SetAnimator(anim);
-        }
-
+        SetPlayerVisual(playerInput.transform, m_playerCount);
         TeleportWholePlayer(playerInput.transform, spawnPoint.position, spawnPoint.rotation);
 
         if(cam != null)
@@ -103,7 +89,7 @@ public class PlayerSpawner : MonoBehaviour
 
     }
 
-    Transform SetPlayerVisual(Transform playerRoot, int playerIndex)
+    void SetPlayerVisual(Transform playerRoot, int playerIndex)
     {
         string[] names = { "Player1", "Player2", "Player3", "Player4" };
 
@@ -120,6 +106,5 @@ public class PlayerSpawner : MonoBehaviour
             chosen.gameObject.SetActive(true);
         }
 
-        return chosen;
     }
 }
